@@ -1,3 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿namespace Module5HW1;
 
-Console.WriteLine("Hello, World!");
+class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var start = new Startup();
+        await start.Run();
+    }
+}
