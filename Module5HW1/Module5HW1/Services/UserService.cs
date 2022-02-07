@@ -18,76 +18,38 @@ public class UserService : IUserService
         _configUrl = config.GetConfig().Result;
     }
 
-    public async Task<ListUserResponse> GetListUsersAsync(string page)
+    public async Task<ListUserResponse?> GetListUsersAsync(string page)
     {
-        var result = await _httpService.SendAsync($"{_configUrl}/{_urlUser}?page={page}", HttpMethod.Get);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<ListUserResponse>(resultString);
-
-        return response!;
+        return await _httpService.SendAsync<ListUserResponse>($"{_configUrl}/{_urlUser}?page={page}", HttpMethod.Get);
     }
 
-    public async Task<SingleUserResponse> GetUserAsync(string id)
+    public async Task<SingleUserResponse?> GetUserAsync(string id)
     {
-        var result = await _httpService.SendAsync($"{_configUrl}/{_urlUser}/{id}", HttpMethod.Get);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<SingleUserResponse>(resultString);
-
-        return response!;
+        return await _httpService.SendAsync<SingleUserResponse>($"{_configUrl}/{_urlUser}/{id}", HttpMethod.Get);
     }
 
-    public async Task<PostCreateResponse> CreateAsync(PostCreateRequest user)
+    public async Task<PostCreateResponse?> CreateAsync(PostCreateRequest user)
     {
-        var httpContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8);
-        var result = await _httpService.SendAsync($"{_configUrl}/{_urlUser}", HttpMethod.Post, httpContent);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<PostCreateResponse>(resultString);
-
-        return response!;
+        return await _httpService.SendAsync<PostCreateResponse>($"{_configUrl}/{_urlUser}", HttpMethod.Post, user);
     }
 
-    public async Task<PutUpdateResponse> PutUpdateAsync(PutUpdateRequest user, string id)
+    public async Task<PutUpdateResponse?> PutUpdateAsync(PutUpdateRequest user, string id)
     {
-        var httpContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8);
-        var result = await _httpService.SendAsync($"{_configUrl}/{_urlUser}/{id}", HttpMethod.Put, httpContent);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<PutUpdateResponse>(resultString);
-
-        return response!;
+        return await _httpService.SendAsync<PutUpdateResponse>($"{_configUrl}/{_urlUser}/{id}", HttpMethod.Put, user);
     }
 
-    public async Task<PatchUpdateResponse> PatchUpdateAsync(PatchUpdateRequest user, string id)
+    public async Task<PatchUpdateResponse?> PatchUpdateAsync(PatchUpdateRequest user, string id)
     {
-        var httpContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8);
-        var result = await _httpService.SendAsync($"{_configUrl}/{_urlUser}/{id}", HttpMethod.Patch, httpContent);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<PatchUpdateResponse>(resultString);
-
-        return response!;
+        return await _httpService.SendAsync<PatchUpdateResponse>($"{_configUrl}/{_urlUser}/{id}", HttpMethod.Patch, user);
     }
 
-    public async Task<DeleteResponse> DeleteAsync(string id)
+    public async Task<DeleteResponse?> DeleteAsync(string id)
     {
-        var result = await _httpService.SendAsync($"{_configUrl}/{_urlUser}/{id}", HttpMethod.Delete);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<DeleteResponse>(resultString);
-
-        return response!;
+        return await _httpService.SendAsync<DeleteResponse>($"{_configUrl}/{_urlUser}/{id}", HttpMethod.Delete);
     }
 
-    public async Task<DelayedResponse> DelayedAsync(string delay)
+    public async Task<DelayedResponse?> DelayedAsync(string delay)
     {
-        var result = await _httpService.SendAsync($"{_configUrl}/{_urlUser}?{delay}", HttpMethod.Get);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<DelayedResponse>(resultString);
-
-        return response!;
+        return await _httpService.SendAsync<DelayedResponse>($"{_configUrl}/{_urlUser}?{delay}", HttpMethod.Get);
     }
 }

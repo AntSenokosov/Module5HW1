@@ -2,5 +2,5 @@
 
 public interface IHttpService
 {
-    public Task<HttpResponseMessage> SendAsync(string url, HttpMethod httpMethod, StringContent? content = null);
+    public Task<T?> SendAsync<T>(string url, HttpMethod httpMethod, object? content = null);
 }

@@ -16,23 +16,13 @@ public class ResourceService : IResourceService
         _configUrl = config.GetConfig().Result;
     }
 
-    public async Task<ListResourceResponse> GetListResourceAsync()
+    public async Task<ListResourceResponse?> GetListResourceAsync()
     {
-        var result = await _httpService.SendAsync($"{_configUrl}/{_urlResource}", HttpMethod.Get);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<ListResourceResponse>(resultString);
-
-        return response!;
+        return await _httpService.SendAsync<ListResourceResponse>($"{_configUrl}/{_urlResource}", HttpMethod.Get);
     }
 
-    public async Task<SingleResourceResponse> GetResourceAsync(string id)
+    public async Task<SingleResourceResponse?> GetResourceAsync(string id)
     {
-        var result = await _httpService.SendAsync($"{_configUrl}/{_urlResource}/{id}", HttpMethod.Get);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<SingleResourceResponse>(resultString);
-
-        return response!;
+        return await _httpService.SendAsync<SingleResourceResponse>($"{_configUrl}/{_urlResource}/{id}", HttpMethod.Get);
     }
 }

@@ -63,32 +63,32 @@ public class App
         listTask.Add(Task.Run(async () =>
         {
             var result = await _authorization.LoginSuccessfullAsync(loginSuccessful);
-            Console.WriteLine(result.Token);
+            Console.WriteLine(result!.Token);
         }));
         listTask.Add(Task.Run(async () =>
         {
             var result = await _authorization.LoginUnsuccessfullAsync(loginUnsuccessfull);
-            Console.WriteLine(result.Error);
+            Console.WriteLine(result!.Error);
         }));
         listTask.Add(Task.Run(async () =>
         {
             var result = await _authorization.RegisterSuccessfullAsync(registerSuccessful);
-            Console.WriteLine($"{result.Id} {result.Token}");
+            Console.WriteLine($"{result!.Id} {result.Token}");
         }));
         listTask.Add(Task.Run(async () =>
         {
             var result = await _authorization.RegisterUnsuccessfullAsync(registerUnsuccessful);
-            Console.WriteLine(result.Error);
+            Console.WriteLine(result!.Error);
         }));
         listTask.Add(Task.Run(async () =>
         {
             var result = await _resource.GetResourceAsync("2");
-            Console.WriteLine($"Resource: {result.Resource.Id} {result.Resource.Name} {result.Resource.Year} {result.Resource.Color} {result.Resource.PantoneValue} Support: {result.Support.Text} {result.Support.Url}");
+            Console.WriteLine($"Resource: {result!.Resource.Id} {result.Resource.Name} {result.Resource.Year} {result.Resource.Color} {result.Resource.PantoneValue} Support: {result.Support.Text} {result.Support.Url}");
         }));
         listTask.Add(Task.Run(async () =>
         {
             var result = await _resource.GetListResourceAsync();
-            Console.WriteLine($"{result.Page} {result.PerPage} {result.TotalPages} {result.Total} {result.Support.Text} {result.Support.Url}");
+            Console.WriteLine($"{result!.Page} {result.PerPage} {result.TotalPages} {result.Total} {result.Support.Text} {result.Support.Url}");
             foreach (var item in result.Resources)
             {
                 Console.WriteLine($"{item.Id} {item.Name} {item.Year} {item.Color} {item.PantoneValue}");
@@ -97,17 +97,17 @@ public class App
         listTask.Add(Task.Run(async () =>
         {
             var result = await _user.CreateAsync(postCreate);
-            Console.WriteLine($"{result.Id} {result.Job} {result.Name} {result.CreatedAt}");
+            Console.WriteLine($"{result!.Id} {result.Job} {result.Name} {result.CreatedAt}");
         }));
         listTask.Add(Task.Run(async () =>
         {
             var result = await _user.PutUpdateAsync(putUpdate, "2");
-            Console.WriteLine($"{result.Job} {result.Name} {result.UpdatedAt}");
+            Console.WriteLine($"{result!.Job} {result.Name} {result.UpdatedAt}");
         }));
         listTask.Add(Task.Run(async () =>
         {
             var result = await _user.PatchUpdateAsync(patchUpdate, "2");
-            Console.WriteLine($"{result.Job} {result.Name} {result.UpdatedAt}");
+            Console.WriteLine($"{result!.Job} {result.Name} {result.UpdatedAt}");
         }));
         listTask.Add(Task.Run(async () =>
         {
@@ -116,7 +116,7 @@ public class App
         listTask.Add(Task.Run(async () =>
         {
             var result = await _user.DelayedAsync("delay=3");
-            Console.WriteLine($"Page: {result.Page} {result.PerPage} {result.TotalPages} {result.Total} Support: {result.Support.Text} {result.Support.Url} Users:");
+            Console.WriteLine($"Page: {result!.Page} {result.PerPage} {result.TotalPages} {result.Total} Support: {result.Support.Text} {result.Support.Url} Users:");
             foreach (var item in result.Users)
             {
                 Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName} {item.Email} {item.Avatar}");
@@ -125,12 +125,12 @@ public class App
         listTask.Add(Task.Run(async () =>
         {
             var result = await _user.GetUserAsync("2");
-            Console.WriteLine($"User: {result.User.Id} {result.User.FirstName} {result.User.Email} {result.User.Avatar} Support: {result.Support.Text} {result.Support.Url}");
+            Console.WriteLine($"User: {result!.User.Id} {result.User.FirstName} {result.User.Email} {result.User.Avatar} Support: {result.Support.Text} {result.Support.Url}");
         }));
         listTask.Add(Task.Run(async () =>
         {
             var result = await _user.GetListUsersAsync("2");
-            Console.WriteLine($"Page: {result.Page} {result.PerPage} {result.TotalPages} {result.Total} Support: {result.Support.Text} {result.Support.Url} Users:");
+            Console.WriteLine($"Page: {result!.Page} {result.PerPage} {result.TotalPages} {result.Total} Support: {result.Support.Text} {result.Support.Url} Users:");
             foreach (var item in result.Users)
             {
                 Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName} {item.Email} {item.Avatar}");

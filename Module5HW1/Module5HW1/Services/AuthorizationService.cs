@@ -23,47 +23,23 @@ public class AuthorizationService : IAuthorizationService
         _urlRegister = @"api/register";
     }
 
-    public async Task<LoginSuccessfulResponse> LoginSuccessfullAsync(LoginSuccessfulRequest login)
+    public async Task<LoginSuccessfulResponse?> LoginSuccessfullAsync(LoginSuccessfulRequest login)
     {
-        var httpContent = new StringContent(JsonConvert.SerializeObject(login), Encoding.UTF8);
-        var result = await _service.SendAsync($"{_configUrl}/{_urlLogin}", HttpMethod.Post, httpContent);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<LoginSuccessfulResponse>(resultString);
-
-        return response!;
+        return await _service.SendAsync<LoginSuccessfulResponse>($"{_configUrl}/{_urlLogin}", HttpMethod.Post, login);
     }
 
-    public async Task<LoginUnsuccessfulResponse> LoginUnsuccessfullAsync(LoginUnsuccessfulRequest login)
+    public async Task<LoginUnsuccessfulResponse?> LoginUnsuccessfullAsync(LoginUnsuccessfulRequest login)
     {
-        var httpContent = new StringContent(JsonConvert.SerializeObject(login), Encoding.UTF8);
-        var result = await _service.SendAsync($"{_configUrl}/{_urlLogin}", HttpMethod.Post, httpContent);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<LoginUnsuccessfulResponse>(resultString);
-
-        return response!;
+        return await _service.SendAsync<LoginUnsuccessfulResponse>($"{_configUrl}/{_urlLogin}", HttpMethod.Post, login);
     }
 
-    public async Task<RegisterSuccessfulResponse> RegisterSuccessfullAsync(RegisterSuccessfulRequest register)
+    public async Task<RegisterSuccessfulResponse?> RegisterSuccessfullAsync(RegisterSuccessfulRequest register)
     {
-        var httpContent = new StringContent(JsonConvert.SerializeObject(_urlRegister), Encoding.UTF8);
-        var result = await _service.SendAsync($"{_configUrl}/{_urlRegister}", HttpMethod.Post, httpContent);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<RegisterSuccessfulResponse>(resultString);
-
-        return response!;
+        return await _service.SendAsync<RegisterSuccessfulResponse>($"{_configUrl}/{_urlRegister}", HttpMethod.Post, register);
     }
 
-    public async Task<RegisterUnsuccessfulResponse> RegisterUnsuccessfullAsync(RegisterUnsuccessfulRequest register)
+    public async Task<RegisterUnsuccessfulResponse?> RegisterUnsuccessfullAsync(RegisterUnsuccessfulRequest register)
     {
-        var httpContent = new StringContent(JsonConvert.SerializeObject(_urlRegister), Encoding.UTF8);
-        var result = await _service.SendAsync($"{_configUrl}/{_urlRegister}", HttpMethod.Post, httpContent);
-
-        var resultString = await result.Content.ReadAsStringAsync();
-        var response = JsonConvert.DeserializeObject<RegisterUnsuccessfulResponse>(resultString);
-
-        return response!;
+        return await _service.SendAsync<RegisterUnsuccessfulResponse>($"{_configUrl}/{_urlRegister}", HttpMethod.Post, register);
     }
 }

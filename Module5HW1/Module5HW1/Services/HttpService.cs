@@ -1,4 +1,5 @@
-﻿using Module5HW1.Models.Response;
+﻿using System.Text;
+using Module5HW1.Models.Response;
 using Module5HW1.Services.Abstract;
 using Newtonsoft.Json;
 
@@ -8,15 +9,22 @@ public class HttpService : IHttpService
 {
     private readonly HttpClient _client = new HttpClient();
 
-    public async Task<HttpResponseMessage> SendAsync(string url, HttpMethod httpMethod, StringContent? content = null)
+    public async Task<T?> SendAsync<T>(string url, HttpMethod httpMethod, object? content = null)
     {
         var httpMessage = new HttpRequestMessage();
-        httpMessage.Content = content;
+        if (content != null)
+        {
+            httpMessage.Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8);
+        }
+
         httpMessage.Method = httpMethod;
         httpMessage.RequestUri = new Uri(url);
 
         var result = await _client.SendAsync(httpMessage);
 
-        return result;
+        var resultString = await result.Content.ReadAsStringAsync();
+        var response = JsonConvert.DeserializeObject<T>(resultString);
+
+        return response;
     }
 }
